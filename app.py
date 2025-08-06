@@ -11,6 +11,11 @@ with open('pcos_model.pkl', 'rb') as f:
 
 scaler = joblib.load('scaler.pkl')
 
+# 🛠️ Fix: Define a homepage route for health checks and users
+@app.route("/")
+def home():
+    return "<h1>✅ PCOS Predictor API is Running</h1><p>Use the /predict endpoint to POST data.</p>"
+
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
@@ -20,5 +25,5 @@ def predict():
     
     return jsonify({'prediction': prediction})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=10000)
